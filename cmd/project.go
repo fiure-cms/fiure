@@ -14,10 +14,14 @@ var projectCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("project called")
 
+		fmt.Print("Galiba oldu")
+
 		return nil
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(projectCmd)
+
+	initCmdConfig("projects")
 }

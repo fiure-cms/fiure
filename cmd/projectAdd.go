@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // projectAddCmd represents the projectAdd command
@@ -14,7 +15,8 @@ var projectAddCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("projectAdd called")
 
-		return nil
+		viper.Set("list", map[string]interface{}{"obaraks": "ne dedin", "deneme": false})
+		return viper.WriteConfig()
 	},
 }
 

@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/spf13/cobra"
+	"github.com/spf13/viper"
 )
 
 // projectSelectCmd represents the projectSelect command
@@ -14,7 +15,9 @@ var projectSelectCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		fmt.Println("projectSelect called")
 
-		return nil
+		viper.Set("current", "my")
+
+		return viper.WriteConfig()
 	},
 }
 

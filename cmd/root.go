@@ -31,19 +31,19 @@ func Execute() {
 
 func init() {
 	// cobra auto init
-	cobra.OnInitialize(initConfig)
+	//cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.fiure.yaml)")
-	rootCmd.MarkPersistentFlagRequired("config")
+	//rootCmd.MarkPersistentFlagRequired("config")
 
-	rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
+	//rootCmd.PersistentFlags().Bool("viper", true, "use Viper for configuration")
 
 	// Viper flags lines
-	viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
+	//viper.BindPFlag("useViper", rootCmd.PersistentFlags().Lookup("viper"))
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -81,4 +81,25 @@ func initConfig() {
 		// TODO: log lines add
 		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
+}
+
+func initCmdConfig(cmd string) {
+
+	viper.SetConfigName(cmd)
+	viper.SetConfigType("json")
+	viper.AddConfigPath("configs")
+	//viper.AllowEmptyEnv(true)
+	if err := viper.ReadInConfig(); err != nil {
+		if _, ok := err.(viper.ConfigFileNotFoundError); ok {
+			// Config file not found; ignore error if desired
+			fmt.Println("dosya yok laaa")
+			//viper.Set("list", map[string]interface{}{"obaraks": "ne dedin", "deneme": false})
+			//viper.SafeWriteConfig()
+		} else {
+			// Config file was found but another error was produced
+			panic(fmt.Errorf("fatal error config file: %w", err))
+		}
+	}
+
+	fmt.Println("Using config file:", viper.ConfigFileUsed())
 }
